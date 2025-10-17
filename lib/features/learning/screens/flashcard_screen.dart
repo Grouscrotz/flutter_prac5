@@ -44,24 +44,7 @@ class _FlashCardScreenState extends State<FlashCardScreen> {
         : widget.topic.words.where((w) => w.learned).toList();
   }
 
-  void _moveToNextWord({bool remembered = false}) {
-    setState(() {
-      if (remembered) wordsToLearn[currentIndex].learned = true;
-
-      showTranslation = false;
-
-      if (wordsToLearn.isEmpty) return;
-
-      if (remembered || !remembered) {
-        currentIndex = (currentIndex + 1) % wordsToLearn.length;
-      }
-
-      if (currentIndex == 0 && remembered) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Слова закончились!')));
-      }
-    });
-  }
+  
 
   void _showAgain() {
     setState(() {
