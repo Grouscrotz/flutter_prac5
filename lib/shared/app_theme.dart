@@ -1,0 +1,8 @@
+import 'package:flutter/material.dart';
+
+class AppTheme {
+  static final lightTheme = ThemeData(
+    primarySwatch: Colors.indigo,
+    scaffoldBackgroundColor: Color(0xFFcfd9df),
+  );
+}
