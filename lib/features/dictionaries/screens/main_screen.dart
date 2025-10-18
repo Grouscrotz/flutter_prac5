@@ -2,15 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:prac5/models/topic.dart';
 import 'package:prac5/models/word.dart';
 import 'package:prac5/features/learning/screens/learning_screen.dart';
-import 'dictionaries_screen.dart';
+import 'package:prac5/features/dictionaries/screens/dictionaries_screen.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {_selectedIndex = index;});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Topic? selectedTopic = topics.any((t) => t.selected) ? topics.firstWhere((t)
+      => t.selected) : null;
+
+    List<Widget> screens = [
+      DictionariesScreen(topics: topics,
+        onSelectTopic: (topic) {
+          setState(() {topics.forEach((t) => t.selected = false);
+            topic.selected = true;
+          });
+        },
+      ),
+      LearningScreen(topic: selectedTopic),
+    ];
+
+    return Scaffold(
+      body: screens[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex, onTap: _onItemTapped,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Словари'),
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Изучение'),
+        ],
+      ),
+    );
+  }
 
   List<Topic> topics = [
     Topic(name: 'Фрукты', words: [
@@ -74,40 +106,4 @@ class _MainScreenState extends State<MainScreen> {
       Word(word: 'Subway', translation: 'Метро'),
     ]),
   ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Topic? selectedTopic = topics.any((t) => t.selected) ? topics.firstWhere((t) => t.selected) : null;
-
-    List<Widget> screens = [
-      DictionariesScreen(
-        topics: topics,
-        onSelectTopic: (topic) {
-          setState(() {
-            topics.forEach((t) => t.selected = false);
-            topic.selected = true;
-          });
-        },
-      ),
-      LearningScreen(topic: selectedTopic),
-    ];
-
-    return Scaffold(
-      body: screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Словари'),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Изучение'),
-        ],
-      ),
-    );
-  }
 }
