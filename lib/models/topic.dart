@@ -1,5 +1,3 @@
-
-
 import 'package:prac5/models/word.dart';
 
 class Topic {

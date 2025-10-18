@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prac5/models/topic.dart';
 import 'package:prac5/models/word.dart';
 import 'package:prac5/features/learning/widgets/word_card.dart';
+import 'package:prac5/features/learning/widgets/emptyState.dart';
 
 class FlashCardScreen extends StatefulWidget {
   final Topic topic;
@@ -19,7 +20,7 @@ class _FlashCardScreenState extends State<FlashCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (wordsToLearn.isEmpty) return _buildEmptyState();
+    if (wordsToLearn.isEmpty) return const EmptyStateScreen();
     final word = wordsToLearn[currentIndex];
 
     return Scaffold(
@@ -47,15 +48,11 @@ class _FlashCardScreenState extends State<FlashCardScreen> {
   void _moveToNextWord({bool remembered = false}) {
     setState(() {
       if (remembered) wordsToLearn[currentIndex].learned = true;
-
       showTranslation = false;
-
       if (wordsToLearn.isEmpty) return;
-
       if (remembered || !remembered) {
         currentIndex = (currentIndex + 1) % wordsToLearn.length;
       }
-
       if (currentIndex == 0 && remembered) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Слова закончились!')));
@@ -72,11 +69,5 @@ class _FlashCardScreenState extends State<FlashCardScreen> {
     });
   }
 
-  Widget _buildEmptyState() {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Карточки')),
-      body: const Center(child: Text('Нет слов для изучения')),
-    );
-  }
 }
 
