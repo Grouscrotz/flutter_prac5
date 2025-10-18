@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../models/topic.dart';
-import '../../../models/word.dart';
-import '../../learning/screens/learning_screen.dart';
+import 'package:prac5/models/topic.dart';
+import 'package:prac5/models/word.dart';
+import 'package:prac5/features/learning/screens/learning_screen.dart';
 import 'dictionaries_screen.dart';
 
 class MainScreen extends StatefulWidget {

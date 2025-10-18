@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prac5/models/topic.dart';
 import 'package:prac5/models/word.dart';
-
-import '../widgets/topic_card.dart';
+import 'package:prac5/features/dictionaries/widgets/topic_card.dart';
 
 class DictionariesScreen extends StatefulWidget {
   final List<Topic> topics;
