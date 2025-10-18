@@ -56,7 +56,7 @@ class _LearningScreenState extends State<LearningScreen> {
                   iconColor: Colors.orangeAccent,
                   label: 'Повторить слова',
                   counter: repeatCount,
-                  onPressed: () => _startSession(topic, learningNew: true),
+                  onPressed: () => _startSession(topic, learningNew: false),
                 ),
               ],
             ),

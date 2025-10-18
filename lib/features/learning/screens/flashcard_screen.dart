@@ -24,6 +24,7 @@ class _FlashCardScreenState extends State<FlashCardScreen> {
     final word = wordsToLearn[currentIndex];
 
     return Scaffold(
+      backgroundColor: Color(0xFFcfd9df),
       appBar: AppBar(title: Text('Карточки: ${widget.topic.name}')),
       body: Center(
         child: WordCard(
@@ -47,12 +48,12 @@ class _FlashCardScreenState extends State<FlashCardScreen> {
 
   void _moveToNextWord({bool remembered = false}) {
     setState(() {
-      if (remembered) wordsToLearn[currentIndex].learned = true;
+      if (remembered && widget.learningNew) {
+        wordsToLearn[currentIndex].learned = true;
+      }
       showTranslation = false;
       if (wordsToLearn.isEmpty) return;
-      if (remembered || !remembered) {
-        currentIndex = (currentIndex + 1) % wordsToLearn.length;
-      }
+      currentIndex = (currentIndex + 1) % wordsToLearn.length;
       if (currentIndex == 0 && remembered) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Слова закончились!')));
